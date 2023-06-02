@@ -1,67 +1,54 @@
-import { Serie } from "./serie.js";
-import { Plan } from "./plan.js";
+import { Aplicacion } from "./aplicacion.js"
+import { Canal } from "./canal.js"
 
 export class Plataforma{
     nombre:string
-    sitio_web:string
+    logo:string
+    descripcion:string
+    patrocinador:string
 
-    series:Serie[]
-    planes:Plan[]
+    aplicacion:Aplicacion|undefined
+    canales : Canal[]
 
-    constructor(nombre:string,sitio_web:string){
-        this.nombre = nombre
-        this.sitio_web = sitio_web
-
-        this.series = []
-        this.planes= []
+    constructor(nombre:string, logo:string, descripcion:string, patrocinador:string){
+        this.nombre=nombre
+        this.logo = logo
+        this.descripcion = descripcion
+        this.patrocinador = patrocinador
+        this.canales = []
 
     }
 
-    crearPlan (precio:number){
-        this.planes.push(new Plan(precio,this))
-    }
-    eliminarPlan(plan:Plan){
-        const index = this.planes.indexOf(plan)
-        if(index > -1){
-            this.planes.splice(index, 1)
-        }
+    agregarCanal(canal:Canal){
+        this.canales.push(canal)
+        canal.agregarPlataforma(this)
     }
 
-    buscarPlan(plan:Plan){
-        const index = this.planes.indexOf(plan)
-        if(index > -1){
-            console.log(this.planes[index])
-        }else{
-            console.log("El plan no se encuentra")
-        }
+    agregarAplicacion(aplicacion:Aplicacion){
+        this.aplicacion = aplicacion
     }
 
-    listarPlan(){
-        console.log(this.planes)
+    detallePlataforma(){
+            console.log("[+] Detalle de la plataforma")
+            console.log("Nombre de la plataforma: "+this.nombre)
+            console.log("Logo: "+this.logo)
+            console.log("Descripcion: "+this.descripcion)
+            console.log("Patrocinador: "+this.patrocinador)
+            console.log("Aplicacion: "+this.aplicacion?.nombre)
+
     }
 
-    crearSerie (imagen:string,nombre:string){
-        this.series.push(new Serie(imagen,nombre))
-    }
-    agregarSerie (serie:Serie){
-        this.series.push(serie)
-    }
-    eliminarSerie(serie:Serie){
-        const index = this.series.indexOf(serie)
-        if(index > -1){
-            this.series.splice(index, 1)
-        }
-    }
-    buscarSerie(Serie_nombre:string){
-        const index = this.series.find(serie => serie.nombre == Serie_nombre)
-        if (index != undefined){
-            console.log(index)
-        }else{
-            console.log("La serie no se encuentra")
-        }
+    listarCanales(){
+        console.log("[+] Lista de Canales:")
+        this.canales.forEach((value) => {
+            console.log("[-] "+value.nombre)
+        })
     }
 
-    listarSeries(){
-        console.log(this.series)
+    listarStreamer(){
+        console.log("[+] Lista de Streamer:")
+        this.canales.forEach((value) => {
+            console.log("[-] "+value.streamer.nickname)
+        })
     }
 }

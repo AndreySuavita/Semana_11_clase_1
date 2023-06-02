@@ -1,55 +1,37 @@
-import { Serie } from "./serie.js";
-import { Plan } from "./plan.js";
 export class Plataforma {
-    constructor(nombre, sitio_web) {
+    constructor(nombre, logo, descripcion, patrocinador) {
         this.nombre = nombre;
-        this.sitio_web = sitio_web;
-        this.series = [];
-        this.planes = [];
+        this.logo = logo;
+        this.descripcion = descripcion;
+        this.patrocinador = patrocinador;
+        this.canales = [];
     }
-    crearPlan(precio) {
-        this.planes.push(new Plan(precio, this));
+    agregarCanal(canal) {
+        this.canales.push(canal);
+        canal.agregarPlataforma(this);
     }
-    eliminarPlan(plan) {
-        const index = this.planes.indexOf(plan);
-        if (index > -1) {
-            this.planes.splice(index, 1);
-        }
+    agregarAplicacion(aplicacion) {
+        this.aplicacion = aplicacion;
     }
-    buscarPlan(plan) {
-        const index = this.planes.indexOf(plan);
-        if (index > -1) {
-            console.log(this.planes[index]);
-        }
-        else {
-            console.log("El plan no se encuentra");
-        }
+    detallePlataforma() {
+        var _a;
+        console.log("[+] Detalle de la plataforma");
+        console.log("Nombre de la plataforma: " + this.nombre);
+        console.log("Logo: " + this.logo);
+        console.log("Descripcion: " + this.descripcion);
+        console.log("Patrocinador: " + this.patrocinador);
+        console.log("Aplicacion: " + ((_a = this.aplicacion) === null || _a === void 0 ? void 0 : _a.nombre));
     }
-    listarPlan() {
-        console.log(this.planes);
+    listarCanales() {
+        console.log("[+] Lista de Canales:");
+        this.canales.forEach((value) => {
+            console.log("[-] " + value.nombre);
+        });
     }
-    crearSerie(imagen, nombre) {
-        this.series.push(new Serie(imagen, nombre));
-    }
-    agregarSerie(serie) {
-        this.series.push(serie);
-    }
-    eliminarSerie(serie) {
-        const index = this.series.indexOf(serie);
-        if (index > -1) {
-            this.series.splice(index, 1);
-        }
-    }
-    buscarSerie(Serie_nombre) {
-        const index = this.series.find(serie => serie.nombre == Serie_nombre);
-        if (index != undefined) {
-            console.log(index);
-        }
-        else {
-            console.log("La serie no se encuentra");
-        }
-    }
-    listarSeries() {
-        console.log(this.series);
+    listarStreamer() {
+        console.log("[+] Lista de Streamer:");
+        this.canales.forEach((value) => {
+            console.log("[-] " + value.streamer.nickname);
+        });
     }
 }

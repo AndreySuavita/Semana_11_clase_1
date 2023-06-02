@@ -1,26 +1,43 @@
-import { Plataforma } from "./plataforma.js";
+import { Aplicacion } from "./aplicacion.js";
 import { Categoria } from "./categoria.js";
-import { Director } from "./director.js";
-import { Actor } from "./actor.js";
-import { Plan } from "./plan.js";
-import { Serie } from "./serie.js";
-const serie1 = new Serie("asd", "Spiderman");
-serie1.crearEpisodio("La picadura", "acerca de el origen de los poderes de spiderman", 2, serie1);
-const plataforma1 = new Plataforma("HBO", "HBO.com");
-const plan1 = new Plan(15000, plataforma1);
-serie1.crearDirector("asdd", "alta", "Christopher Nolan");
-serie1.crearActor("fdsad", "flaca", "Keira Knightley");
-const actor1 = new Actor("fdsafasd", "flaca", "Jennifer Anninston");
-const director1 = new Director("fdsafsasd", "gordo", "Joe Wright");
-const categoria1 = new Categoria("Drama");
-serie1.agregarActor(actor1);
-serie1.agregarDirector(director1);
-serie1.agregarCategoria(categoria1);
-serie1.listarCategorias();
-serie1.listarActores();
-serie1.listarDirectores();
-categoria1.agregarSerie(serie1);
-categoria1.listarSeries();
-categoria1.buscarSerie("Spiderman");
-serie1.buscarActor("Keira Knightley");
-serie1.buscarDirector("Christopher Nolan");
+import { Plataforma } from "./plataforma.js";
+import { Canal } from "./canal.js";
+import { Streamer } from "./streamer.js";
+import { Stream } from "./stream.js";
+//crear objetos
+const goluchas = new Plataforma("goluchas", "logo", "pagina para ver lucha libre", "WWE");
+const aplicacion1 = new Aplicacion("aplicacion1", goluchas);
+const cara = new Streamer("cara", "calvo gordo jugador de resident evil speedrun", "caradechiste.instagram");
+const caradechiste = new Canal("Caradechiste", "banner1", "Canal de videojuegos en speedrun", cara);
+const speedrun = new Categoria("speedrun", "imagen1", "recorrer un juego tan rapido como séa posible");
+const diabloVI = new Stream("DiabloVI", new Date("2023-02-06"), "16 horas", caradechiste, speedrun);
+//9. agrear plataforma
+goluchas.agregarCanal(caradechiste);
+//10. agregar canal
+// se agrega el canal a una plataforma en la funcion de agregarCanal
+//11. agregar streamer
+// como es una composición en la que cada canal solo posee un streamer, este se agrega cuando se crea un canal
+//12. agregar un stream
+caradechiste.agregarStream(diabloVI);
+speedrun.agregarStream(diabloVI);
+//13. agregar a un canal un streamer
+// canal y streamer poseen una composición en la que un canal solo puede tener un streamer que se agrega cuando se crea el canal
+//14. agregar un stream a un stream
+//en este diseño la clase Stream no esta directamente relacionada con la clase Streamer pero si 
+//esta relacionada con la clase Canal en cuyo caso se puede utilizar el metodo agregarStream
+console.log("1. listar plataformas");
+aplicacion1.listarPlataformas();
+console.log("2. detalle de plataforma");
+goluchas.detallePlataforma();
+console.log("3.lista de canales");
+goluchas.listarCanales();
+console.log("4. Detalle de canal");
+caradechiste.detalleCanal();
+console.log("5. Listado de streamers");
+goluchas.listarStreamer();
+console.log("6. Detalle de un streamer");
+cara.detalleStreamer();
+console.log("7. listado de streams");
+caradechiste.listarStreamings();
+console.log("8. Detalle de stream");
+diabloVI.detalleStream();
