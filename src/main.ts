@@ -6,6 +6,7 @@ import { Canal } from "./canal.js";
 import { Streamer } from "./streamer.js";
 import { Stream } from "./stream.js";
 
+
 //crear objetos
 const goluchas = new Plataforma("goluchas","logo","pagina para ver lucha libre","WWE")
 const aplicacion1 = new Aplicacion("aplicacion1",goluchas)

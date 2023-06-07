@@ -15,7 +15,7 @@ export class Stream {
         console.log("Nombre de la plataforma: " + this.nombre);
         console.log("Logo: " + this.fecha);
         console.log("Descripcion: " + this.duracion);
-        console.log("Canal: " + this.canal);
+        console.log("Canal: " + this.canal.nombre);
     }
     listarCategorias() {
         console.log("[+] Lista de Categorías:");

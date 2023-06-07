@@ -5,7 +5,7 @@ import { Streamer } from "./streamer.js"
 
 export class Canal{
     nombre:string
-    banner:string
+    private banner:string
     descripcion:string
 
     plataforma:Plataforma|undefined
@@ -47,3 +47,4 @@ export class Canal{
         })
     }
 }
+
